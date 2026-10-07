@@ -3,6 +3,10 @@
 在一块 **ESP32-2432S028R（俗称 Cheap Yellow Display / CYD）** 上显示 6 个电脑程序的卡片，
 手指点一下，电脑上对应的程序就会被启动（已经在跑就切到前台，不会重复开）。
 
+> **只想下配置器？** [Releases](https://github.com/misila122/esp32-launcher/releases/latest)
+> 里有打包好的单文件 exe，免安装、不需要 Python。固件要自己编（原因见
+> [桌面配置器](#4-桌面配置器图形界面改卡片可选)那一节）。
+
 ```
 ┌──────────────────────┐   WiFi 局域网   ┌───────────────────────────┐
 │  ESP32 + 2.4" 触摸屏  │ ───────────────▶│  电脑上的常驻小服务        │
@@ -350,6 +354,12 @@ python esp32_configurator.py                                  # 直接跑源码
 ```
 
 exe 是自包含的（标准库 + tkinter，**不需要装 Python**），可以直接拷到别的 Windows 电脑双击运行。
+不想自己打包的话去 [Releases](https://github.com/misila122/esp32-launcher/releases/latest)
+下 `ESP32-Launcher-Configurator.exe` 就行。
+
+> 那里**只有配置器，没有预编译固件**，是故意的：固件编译时会把 `firmware/src/secrets.h`
+> 里的 WiFi 账号直接编进 `.bin`，编译路径里还带着构建者的用户名 —— 这两样都不适合放进
+> 公开产物。固件照上面「编译和烧录固件」自己编一次就好。
 
 ![配置器界面](configurator/ui.png)
 
