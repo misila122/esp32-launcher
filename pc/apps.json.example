@@ -1,0 +1,79 @@
+{
+  "_comment": "ESP32 触摸屏启动器 —— 6 个程序的配置。改完保存即可，服务会自动重载（无需重启）。把这份复制成 apps.json 再改成你自己的路径。",
+
+  "device": {
+    "tcp_port": 8266,
+    "udp_port": 8267,
+    "hostname": "esp32-launcher.local",
+    "ip": "",
+    "token": "esp32launcher"
+  },
+
+  "options": {
+    "focus_if_running": true,
+    "log_lines": 500
+  },
+
+  "apps": [
+    {
+      "id": 1,
+      "label": "Notepad",
+      "name": "记事本",
+      "path": "C:\\Windows\\System32\\notepad.exe",
+      "args": [],
+      "cwd": "",
+      "glyph": "terminal",
+      "color": "#4C8BF5"
+    },
+    {
+      "id": 2,
+      "label": "Calc",
+      "name": "计算器",
+      "path": "C:\\Windows\\System32\\calc.exe",
+      "args": [],
+      "cwd": "",
+      "glyph": "chart",
+      "color": "#7B61FF"
+    },
+    {
+      "id": 3,
+      "label": "Terminal",
+      "name": "命令提示符",
+      "path": "C:\\Windows\\System32\\cmd.exe",
+      "args": [],
+      "cwd": "",
+      "glyph": "terminal",
+      "color": "#F0B90B"
+    },
+    {
+      "id": 4,
+      "label": "Paint",
+      "name": "画图",
+      "path": "C:\\Windows\\System32\\mspaint.exe",
+      "args": [],
+      "cwd": "",
+      "glyph": "gamepad",
+      "color": "#FB7299"
+    },
+    {
+      "id": 5,
+      "label": "Explorer",
+      "name": "文件资源管理器",
+      "path": "C:\\Windows\\explorer.exe",
+      "args": [],
+      "cwd": "",
+      "glyph": "tv",
+      "color": "#00C2A8"
+    },
+    {
+      "id": 6,
+      "label": "Chat",
+      "name": "随便哪个聊天软件",
+      "path": "C:\\Program Files\\YourApp\\YourApp.exe",
+      "args": [],
+      "cwd": "",
+      "glyph": "chat",
+      "color": "#07C160"
+    }
+  ]
+}

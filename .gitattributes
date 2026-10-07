@@ -1,0 +1,13 @@
+# 换行统一，免得不同系统上 clone 下来整份文件都被标成"改过"
+* text=auto
+
+# Windows 脚本强制 CRLF：这两个 .ps1 是带 BOM 的 UTF-8，
+# 用 LF 交给某些老工具处理容易出怪问题（PowerShell 5.1 会按 GBK 解错整个脚本）
+*.ps1  text eol=crlf
+
+# 二进制文件别当文本处理
+*.ico  binary
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.bin  binary

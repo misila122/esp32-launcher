@@ -1,0 +1,10 @@
+# 编译产物 / 备份 / 临时文件
+.pio/
+.vscode/
+*.bin
+*.elf
+*.map
+backup/
+
+# 含 WiFi 密码，绝对不要提交
+src/secrets.h
