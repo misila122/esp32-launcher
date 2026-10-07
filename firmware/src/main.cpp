@@ -107,7 +107,6 @@ static int g_sw = 320, g_sh = 240;      // 屏幕尺寸（旋转之后）
 // 误判时把横屏切回竖屏，并把错误值写入 NVS；正常使用不应改变面板方向。
 // ---------------------------------------------------------------------------
 #define NVS_DISP_NS "disp"
-#define DISPLAY_CONFIG_VERSION 3
 
 static uint8_t g_dispOff = PANEL_OFFSET_ROTATION;   // 面板 offset_rotation 0..7（bit2 = 翻转）
 static uint8_t g_dispRot = SCREEN_ROTATION;         // 逻辑 rotation 0..3
@@ -1016,7 +1015,8 @@ static void pollDispSetup() {
       dispSaveNvs();
       drawSelfTest();
       g_bootAt = millis();               // 操作过就把倒计时推后
-      Serial.printf("[DISP] invert -> %u (saved)\n", (unsigned)g_dispInv);
+      Serial.printf("[DISP] invert -> %u (RAM only, reboot restores the compile-time value)\n",
+                    (unsigned)g_dispInv);
     }
   } else if (!now && down) {
     down = false;
@@ -1026,7 +1026,8 @@ static void pollDispSetup() {
       dispSaveNvs();
       drawSelfTest();
       g_bootAt = millis();
-      Serial.printf("[DISP] offset_rotation -> %u (saved)\n", (unsigned)g_dispOff);
+      Serial.printf("[DISP] offset_rotation -> %u (RAM only, reboot restores the compile-time value)\n",
+                    (unsigned)g_dispOff);
     }
   }
 }
@@ -1680,7 +1681,8 @@ static void pollSerial() {
           // 'o r <0-3>'  = 逻辑 rotation
           // 'o i'        = 反色开/关
           // 'o d'        = 全部恢复成编译期默认值
-          // 前四个都会立刻生效、写进 NVS，并把画面重画一遍方便看效果。
+          // 前四个都会立刻生效、把画面重画一遍方便看效果，但**都不写 flash** ——
+          // 重启就回到编译期配置。试出对的值之后要改 board.h / platformio.ini 再烧一次。
           char which = arg.length() ? tolower(arg[0]) : 0;
           bool changed = false;
 
