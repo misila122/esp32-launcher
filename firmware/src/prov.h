@@ -251,8 +251,13 @@ static void provWarmScan() {
   if (!g_provOn) return;
   uint32_t t0 = millis();
   provBuildOptions(true);
-  Serial.printf("[PROV] 网络列表已预热（%u 个，耗时 %lums）\n",
-                (unsigned)g_provOptions.length(), (unsigned long)(millis() - t0));
+  // 数的是 <option> 的个数，不是字符串长度 —— 早先这里打印 g_provOptions.length()，
+  // 于是日志里写着"网络列表已预热（2576 个…）"，看着像扫到了两千多个热点。
+  int n = 0;
+  for (int i = g_provOptions.indexOf("<option"); i >= 0;
+       i = g_provOptions.indexOf("<option", i + 1)) n++;
+  Serial.printf("[PROV] 网络列表已预热（%d 个网络，HTML %u 字节，耗时 %lums）\n",
+                n, (unsigned)g_provOptions.length(), (unsigned long)(millis() - t0));
 }
 
 static void provPoll() {

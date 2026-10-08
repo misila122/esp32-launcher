@@ -121,10 +121,13 @@ static void dispLoadNvs() {
   Preferences p;
   if (!p.begin(NVS_DISP_NS, false)) return;
   // 清掉早期固件留下的显示参数，始终采用编译期的横屏配置。
-  p.remove("off");
-  p.remove("rot");
-  p.remove("inv");
-  p.remove("ver");
+  // 先 isKey() 再 remove()：对不存在的键调用 remove()，Preferences 会往串口打
+  // 一行红色的 "[E] nvs_erase_key fail: xxx NOT_FOUND" —— 四个键四条，每次开机都刷，
+  // 看着像启动就报错。其实什么都没坏，只是没必要去删一个本来就没有的键。
+  const char* keys[] = {"off", "rot", "inv", "ver"};
+  for (const char* k : keys) {
+    if (p.isKey(k)) p.remove(k);
+  }
   p.end();
 }
 

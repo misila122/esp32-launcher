@@ -65,3 +65,8 @@ __pycache__/
 # 配置器记住的路径（跟这台机器绑定）和自检输出
 configurator/configurator_settings.json
 configurator/_exe_selftest.txt
+
+# 调试脚本吐出来的图：_qr_check.py 画重建出来的二维码、_icon_dump.py 拼图标对比图。
+# 都是每次跑都不一样的现场快照，不该进版本库。
+configurator/qr_board.png
+configurator/board_icons.png
